@@ -68,4 +68,43 @@ export default defineConfig([
       },
     },
   },
+  {
+    rules: {
+      /**
+       * Enforce Typescript for script blocks in Vue SFC
+       *
+       * <script lang="ts">
+       * export default {
+       *   // component code
+       * }
+       * </script>
+       */
+      'vue/block-lang': ['error', {
+        script: { lang: 'ts' },
+      }],
+      /**
+       * Enforce Composition API with script-setup style
+       *
+       * <script setup lang="ts">
+       * const count = ref(0);
+       * </script>
+       */
+      'vue/component-api-style': ['error',
+        ['script-setup'],
+      ],
+      /**
+       * Enforce PascalCase for component names in templates
+       *
+       * <template>
+       *   <MyComponent />
+       * </template>
+       */
+      'vue/component-name-in-template-casing': ['error', 'PascalCase'],
+      /**
+       * Requires component names to be always multi-word.
+       * Disabled.
+       */
+      'vue/multi-word-component-names': 'off',
+    }
+  }
 ]);
