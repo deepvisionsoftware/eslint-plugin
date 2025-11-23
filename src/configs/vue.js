@@ -1,8 +1,9 @@
-import { defineConfig } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import eslint from '@eslint/js';
 import typescriptEslint from 'typescript-eslint';
-import pluginVue from 'eslint-plugin-vue';
-import vueParser from 'vue-eslint-parser';
+import eslintPluginVue from 'eslint-plugin-vue';
+import vueEslintParser from 'vue-eslint-parser';
+import stylisticEslint from '@stylistic/eslint-plugin';
 import globals from 'globals';
 
 /**
@@ -13,11 +14,13 @@ const extraFileExtensions = ['.vue'];
 
 export default defineConfig([
   /**
-   * Ignore all files outside src directory
+   * Ignore all files outside src directory and graphql codegen
    */
-  {
-    ignores: ['**/*', '!src/**'],
-  },
+  globalIgnores([
+    '**/*',
+    '!src/**',
+    'src/graphql/**/*.ts',
+  ]),
   /**
    * External Configs
    *
@@ -30,11 +33,21 @@ export default defineConfig([
    *
    * eslint-plugin-vue: Strongly recommended
    * @see {@link https://eslint.vuejs.org/rules/}
+   *
+   * @stylistic/eslint-plugin: Custom Style
+   * @see {@link https://eslint.style/rules}
    */
   eslint.configs.recommended,
   typescriptEslint.configs.strictTypeChecked,
   typescriptEslint.configs.stylisticTypeChecked,
-  pluginVue.configs['flat/strongly-recommended'],
+  eslintPluginVue.configs['flat/strongly-recommended'],
+  stylisticEslint.configs.customize({
+    indent: 2,
+    quotes: 'single',
+    semi: true,
+    arrowParens: true,
+    braceStyle: '1tbs',
+  }),
   /**
    * Typescript file Parser
    */
@@ -54,7 +67,7 @@ export default defineConfig([
   {
     files: ['src/**/*.vue'],
     languageOptions: {
-      parser: vueParser,
+      parser: vueEslintParser,
       parserOptions: {
         projectService: true,
         parser: typescriptEslint.parser,
