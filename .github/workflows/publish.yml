@@ -27,8 +27,8 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            import { readFile } from 'fs/promises';
-            const packageJson = JSON.parse(await readFile('./package.json', 'utf8'));
+            const fs = require('fs');
+            const packageJson = JSON.parse(await fs.promises.readFile('./package.json', 'utf8'));
             const currentVersion = packageJson.version;
 
             console.log(`📦 Local version: ${currentVersion}`);
