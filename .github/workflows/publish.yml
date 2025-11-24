@@ -6,7 +6,7 @@ on:
       - v*
 
 env:
-  PACKAGE_NAME: @deepvision/eslint-plugin
+  PACKAGE_NAME: '@deepvision/eslint-plugin'
 
 permissions:
   id-token: write
