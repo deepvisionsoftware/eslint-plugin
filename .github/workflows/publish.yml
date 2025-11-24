@@ -1,0 +1,66 @@
+name: Publish to NPM
+
+on:
+  push:
+    branches:
+      - v*
+
+env:
+  PACKAGE_NAME: @deepvision/eslint-plugin
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    outputs:
+      should-publish: ${{ steps.check.outputs.should-publish }}
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v5
+
+      - id: check
+        name: Check published version
+        uses: actions/github-script@v7
+        with:
+          script: |
+            import { readFile } from 'fs/promises';
+            const packageJson = JSON.parse(await readFile('./package.json', 'utf8'));
+            const currentVersion = packageJson.version;
+
+            console.log(`📦 Local version: ${currentVersion}`);
+
+            const response = await fetch('https://registry.npmjs.org/${{ env.PACKAGE_NAME }}?fields=versions');
+            const data = await response.json();
+
+            const versionExists = data.versions && currentVersion in data.versions;
+
+            if (versionExists) {
+              console.log(`🚧 Version ${currentVersion} already exists in npm registry. Skipping publish.`);
+              core.setOutput('should-publish', 'false');
+            } else {
+              console.log(`👷⬆️ Version ${currentVersion} does not exist in npm registry. Will publish.`);
+              core.setOutput('should-publish', 'true');
+            }
+
+  publish:
+    runs-on: ubuntu-24.04
+    needs: check
+    if: needs.check.outputs.should-publish == 'true'
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v5
+
+      - id: setup-node
+        name: Setup Node.js v24
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - id: publish
+        name: Publish to NPM
+        run: npm publish --tag rc
