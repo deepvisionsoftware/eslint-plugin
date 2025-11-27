@@ -58,6 +58,16 @@ export default defineConfig([
       '@typescript-eslint/no-extraneous-class': ['error', {
         allowWithDecorator: true,
       }],
+      /**
+       * Enforce inline type imports
+       *
+       * import { type Foo } from 'Foo';
+       */
+      '@typescript-eslint/consistent-type-imports': ['error', {
+        prefer: 'type-imports',
+        fixStyle: 'inline-type-imports',
+        disallowTypeAnnotations: true,
+      }],
     },
   },
 ]);

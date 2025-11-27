@@ -84,6 +84,16 @@ export default defineConfig([
   {
     rules: {
       /**
+       * Enforce inline type imports
+       *
+       * import { type Foo } from 'Foo';
+       */
+      '@typescript-eslint/consistent-type-imports': ['error', {
+        prefer: 'type-imports',
+        fixStyle: 'inline-type-imports',
+        disallowTypeAnnotations: true,
+      }],
+      /**
        * Enforce Typescript for script blocks in Vue SFC
        *
        * <script lang="ts">
