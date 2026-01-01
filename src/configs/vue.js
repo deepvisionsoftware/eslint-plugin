@@ -5,6 +5,7 @@ import eslintPluginVue from 'eslint-plugin-vue';
 import vueEslintParser from 'vue-eslint-parser';
 import stylisticEslint from '@stylistic/eslint-plugin';
 import globals from 'globals';
+import { typescriptRules } from '../shared/rules.js';
 
 /**
  * Additional file extensions which should be considered in the TypeScript Program compilation.
@@ -81,18 +82,15 @@ export default defineConfig([
       },
     },
   },
+  /**
+   * Shared Typescript rules
+   */
+  typescriptRules,
+  /**
+   * Framework specific rules
+   */
   {
     rules: {
-      /**
-       * Enforce inline type imports
-       *
-       * import { type Foo } from 'Foo';
-       */
-      '@typescript-eslint/consistent-type-imports': ['error', {
-        prefer: 'type-imports',
-        fixStyle: 'inline-type-imports',
-        disallowTypeAnnotations: true,
-      }],
       /**
        * Enforce Typescript for script blocks in Vue SFC
        *
@@ -102,9 +100,12 @@ export default defineConfig([
        * }
        * </script>
        */
-      'vue/block-lang': ['error', {
-        script: { lang: 'ts' },
-      }],
+      'vue/block-lang': [
+        'error',
+        {
+          script: { lang: 'ts' },
+        },
+      ],
       /**
        * Enforce Composition API with script-setup style
        *
@@ -112,9 +113,7 @@ export default defineConfig([
        * const count = ref(0);
        * </script>
        */
-      'vue/component-api-style': ['error',
-        ['script-setup'],
-      ],
+      'vue/component-api-style': ['error', ['script-setup']],
       /**
        * Enforce PascalCase for component names in templates
        *
@@ -128,6 +127,6 @@ export default defineConfig([
        * Disabled.
        */
       'vue/multi-word-component-names': 'off',
-    }
-  }
+    },
+  },
 ]);

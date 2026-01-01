@@ -7,6 +7,6 @@ const plugin = {
     node: nodeConfig,
     vue: vueConfig,
   },
-}
+};
 
 export default plugin;

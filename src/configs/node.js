@@ -2,6 +2,7 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import eslint from '@eslint/js';
 import typescriptEslint from 'typescript-eslint';
 import stylistic from '@stylistic/eslint-plugin';
+import { typescriptRules } from '../shared/rules.js';
 
 export default defineConfig([
   /**
@@ -43,6 +44,13 @@ export default defineConfig([
       },
     },
   },
+  /**
+   * Shared Typescript rules
+   */
+  typescriptRules,
+  /**
+   * Framework specific rules
+   */
   {
     rules: {
       /**
@@ -55,19 +63,12 @@ export default defineConfig([
        * })
        * export class ExampleModule {}
        */
-      '@typescript-eslint/no-extraneous-class': ['error', {
-        allowWithDecorator: true,
-      }],
-      /**
-       * Enforce inline type imports
-       *
-       * import { type Foo } from 'Foo';
-       */
-      '@typescript-eslint/consistent-type-imports': ['error', {
-        prefer: 'type-imports',
-        fixStyle: 'inline-type-imports',
-        disallowTypeAnnotations: true,
-      }],
+      '@typescript-eslint/no-extraneous-class': [
+        'error',
+        {
+          allowWithDecorator: true,
+        },
+      ],
     },
   },
 ]);
