@@ -44,15 +44,9 @@ export default defineConfig([
       },
     },
   },
-  /**
-   * Shared Typescript rules
-   */
-  typescriptRules,
-  /**
-   * Framework specific rules
-   */
   {
     rules: {
+      ...typescriptRules,
       /**
        * Allow NestJs module empty classes with @Module decorator
        *

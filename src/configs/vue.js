@@ -82,15 +82,9 @@ export default defineConfig([
       },
     },
   },
-  /**
-   * Shared Typescript rules
-   */
-  typescriptRules,
-  /**
-   * Framework specific rules
-   */
   {
     rules: {
+      ...typescriptRules,
       /**
        * Enforce Typescript for script blocks in Vue SFC
        *
