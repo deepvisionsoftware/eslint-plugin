@@ -7,12 +7,6 @@ import stylisticEslint from '@stylistic/eslint-plugin';
 import globals from 'globals';
 import { typescriptRules } from '../shared/rules.js';
 
-/**
- * Additional file extensions which should be considered in the TypeScript Program compilation.
- * @see {@link https://typescript-eslint.io/troubleshooting/typed-linting/performance#project-service-issues}
- */
-const extraFileExtensions = ['.vue'];
-
 export default defineConfig([
   /**
    * Ignore all files outside src directory and graphql codegen
@@ -28,8 +22,8 @@ export default defineConfig([
    * @eslint/js: Recommended
    * @see {@link https://eslint.org/docs/latest/rules/}
    *
-   * typescript-eslint: Strict (with Type Checks)
-   * typescript-eslint: Stylistic (with Type Checks)
+   * typescript-eslint: Strict
+   * typescript-eslint: Stylistic
    * @see {@link https://typescript-eslint.io/rules/}
    *
    * eslint-plugin-vue: Strongly recommended
@@ -39,8 +33,8 @@ export default defineConfig([
    * @see {@link https://eslint.style/rules}
    */
   eslint.configs.recommended,
-  typescriptEslint.configs.strictTypeChecked,
-  typescriptEslint.configs.stylisticTypeChecked,
+  typescriptEslint.configs.strict,
+  typescriptEslint.configs.stylistic,
   eslintPluginVue.configs['flat/strongly-recommended'],
   stylisticEslint.configs.customize({
     indent: 2,
@@ -56,10 +50,6 @@ export default defineConfig([
     files: ['src/**/*.ts'],
     languageOptions: {
       parser: typescriptEslint.parser,
-      parserOptions: {
-        projectService: true,
-        extraFileExtensions,
-      },
     },
   },
   /**
@@ -70,9 +60,7 @@ export default defineConfig([
     languageOptions: {
       parser: vueEslintParser,
       parserOptions: {
-        projectService: true,
         parser: typescriptEslint.parser,
-        extraFileExtensions,
       },
       /**
        * Fixes "window is undefined" and other browser global variables visibility

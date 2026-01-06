@@ -18,16 +18,16 @@ export default defineConfig([
    * @eslint/js: Recommended
    * @see {@link https://eslint.org/docs/latest/rules/}
    *
-   * typescript-eslint: Strict (with Type Checks)
-   * typescript-eslint: Stylistic (with Type Checks)
+   * typescript-eslint: Strict
+   * typescript-eslint: Stylistic
    * @see {@link https://typescript-eslint.io/rules/}
    *
    * @stylistic/eslint-plugin: Custom Style
    * @see {@link https://eslint.style/rules}
    */
   eslint.configs.recommended,
-  typescriptEslint.configs.strictTypeChecked,
-  typescriptEslint.configs.stylisticTypeChecked,
+  typescriptEslint.configs.strict,
+  typescriptEslint.configs.stylistic,
   stylistic.configs.customize({
     indent: 2,
     quotes: 'single',
@@ -39,9 +39,6 @@ export default defineConfig([
     files: ['src/**/*.ts'],
     languageOptions: {
       parser: typescriptEslint.parser,
-      parserOptions: {
-        projectService: true,
-      },
     },
   },
   {

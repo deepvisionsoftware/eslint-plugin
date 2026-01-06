@@ -20,15 +20,4 @@ export const typescriptRules = {
     fixStyle: 'inline-type-imports',
     disallowTypeAnnotations: true,
   }],
-  /**
-   * Allow numbers in template expressions
-   *
-   * const count = 5;
-   * console.log(`Count: ${count}`);
-   *
-   * @see {@link https://typescript-eslint.io/rules/restrict-template-expressions/}
-   */
-  '@typescript-eslint/restrict-template-expressions': ['error', {
-    allowNumber: true,
-  }],
 };
