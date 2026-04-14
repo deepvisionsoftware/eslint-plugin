@@ -2,7 +2,7 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import eslint from '@eslint/js';
 import typescriptEslint from 'typescript-eslint';
 import stylistic from '@stylistic/eslint-plugin';
-import { typescriptRules } from '../shared/rules.js';
+import { stylisticRules, typescriptRules } from '../shared/rules.js';
 
 export default defineConfig([
   /**
@@ -47,6 +47,10 @@ export default defineConfig([
        * Shared Typescript rules
        */
       ...typescriptRules,
+      /**
+       * Shared Stylistic rules
+       */
+      ...stylisticRules,
       /**
        * Allow NestJs module empty classes with @Module decorator
        *

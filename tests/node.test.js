@@ -58,6 +58,14 @@ describe('node config', () => {
     expect(ruleIds).toContain('@stylistic/semi');
   });
 
+  it('should report @stylistic/padding-line-between-statements before return', async () => {
+    const eslint = createEslint();
+    const results = await eslint.lintFiles(['src/invalid.ts']);
+    const ruleIds = getRuleIds(results);
+
+    expect(ruleIds).toContain('@stylistic/padding-line-between-statements');
+  });
+
   it('should ignore files outside src/', async () => {
     const eslint = createEslint();
     const results = await eslint.lintFiles(['src/invalid.ts']);

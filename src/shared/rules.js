@@ -21,3 +21,20 @@ export const typescriptRules = {
     disallowTypeAnnotations: true,
   }],
 };
+
+/**
+ * Stylistic rules shared across all configurations
+ */
+export const stylisticRules = {
+  /**
+   * Require a blank line before return statements.
+   *
+   * Alternative to the deprecated `newline-before-return` core rule.
+   *
+   * @see {@link https://eslint.style/rules/padding-line-between-statements}
+   */
+  '@stylistic/padding-line-between-statements': [
+    'error',
+    { blankLine: 'always', prev: '*', next: 'return' },
+  ],
+};

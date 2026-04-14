@@ -5,7 +5,7 @@ import eslintPluginVue from 'eslint-plugin-vue';
 import vueEslintParser from 'vue-eslint-parser';
 import stylisticEslint from '@stylistic/eslint-plugin';
 import globals from 'globals';
-import { typescriptRules } from '../shared/rules.js';
+import { stylisticRules, typescriptRules } from '../shared/rules.js';
 
 export default defineConfig([
   /**
@@ -76,6 +76,10 @@ export default defineConfig([
        * Shared Typescript rules
        */
       ...typescriptRules,
+      /**
+       * Shared Stylistic rules
+       */
+      ...stylisticRules,
       /**
        * Enforce Typescript for script blocks in Vue SFC
        *
