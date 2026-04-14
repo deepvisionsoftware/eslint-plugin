@@ -21,7 +21,10 @@
   },
   "scripts": {
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "publish:patch": "pnpm version patch -m \"release: %s\"",
+    "prepublish:patch": "git fetch && git merge @{upstream} && pnpm install && pnpm test",
+    "postpublish:patch": "git push origin && git push origin --tags"
   },
   "dependencies": {
     "@eslint/js": "^10.0.1",
