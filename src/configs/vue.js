@@ -44,7 +44,7 @@ export default defineConfig([
     braceStyle: '1tbs',
   }),
   /**
-   * Typescript file Parser
+   * TypeScript file Parser
    */
   {
     files: ['src/**/*.ts'],
@@ -73,7 +73,7 @@ export default defineConfig([
   {
     rules: {
       /**
-       * Shared Typescript rules
+       * Shared TypeScript rules
        */
       ...typescriptRules,
       /**
@@ -81,7 +81,7 @@ export default defineConfig([
        */
       ...stylisticRules,
       /**
-       * Enforce Typescript for script blocks in Vue SFC
+       * Enforce TypeScript for script blocks in Vue SFC
        *
        * <script lang="ts">
        * export default {

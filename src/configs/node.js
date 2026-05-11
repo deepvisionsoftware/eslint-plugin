@@ -44,7 +44,7 @@ export default defineConfig([
   {
     rules: {
       /**
-       * Shared Typescript rules
+       * Shared TypeScript rules
        */
       ...typescriptRules,
       /**
