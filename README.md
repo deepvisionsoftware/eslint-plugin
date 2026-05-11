@@ -70,6 +70,7 @@ This package includes all necessary dependencies:
 - `typescript-eslint` - TypeScript support for ESLint
 - `@stylistic/eslint-plugin` - Stylistic formatting rules
 - `eslint-plugin-vue` - Vue.js linting rules
+- `eslint-plugin-perfectionist` - Import sorting rules
 
 You don't need to install any of these separately!
 

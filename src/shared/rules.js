@@ -9,15 +9,15 @@
  */
 export const typescriptRules = {
   /**
-   * Enforce inline type imports
+   * Enforce separate type imports
    *
-   * import { type Foo } from 'Foo';
+   * import type { Foo } from 'Foo';
    *
    * @see {@link https://typescript-eslint.io/rules/consistent-type-imports/}
    */
   '@typescript-eslint/consistent-type-imports': ['error', {
     prefer: 'type-imports',
-    fixStyle: 'inline-type-imports',
+    fixStyle: 'separate-type-imports',
     disallowTypeAnnotations: true,
   }],
 };
@@ -37,4 +37,44 @@ export const stylisticRules = {
     'error',
     { blankLine: 'always', prev: '*', next: 'return' },
   ],
+
+  /**
+   * Sort import statements into groups by source — builtin, external,
+   * internal (paths matching `^@/.*`), then relative — alphabetically
+   * within each group, with one blank line between groups. Value and
+   * type imports share each group so `import` and `import type` from
+   * the same module sit together.
+   *
+   * Side-effect imports keep their original order (`sortSideEffects: false`)
+   * and are omitted from `groups`, since reordering them can change runtime
+   * behavior (polyfills, setup, CSS, etc.).
+   *
+   * @see {@link https://perfectionist.dev/rules/sort-imports}
+   */
+  'perfectionist/sort-imports': ['error', {
+    type: 'alphabetical',
+    order: 'asc',
+    newlinesBetween: 1,
+    sortSideEffects: false,
+    internalPattern: ['^@/.*'],
+    groups: [
+      ['value-builtin', 'type-builtin'],
+      ['value-external', 'type-external'],
+      ['value-internal', 'type-internal'],
+      ['value-parent', 'value-sibling', 'value-index', 'type-parent', 'type-sibling', 'type-index'],
+    ],
+  }],
+
+  /**
+   * Sort named imports inside `{ ... }` alphabetically,
+   * with value imports before type imports.
+   *
+   * @see {@link https://perfectionist.dev/rules/sort-named-imports}
+   */
+  'perfectionist/sort-named-imports': ['error', {
+    type: 'alphabetical',
+    order: 'asc',
+    ignoreCase: true,
+    groups: ['value-import', 'type-import'],
+  }],
 };

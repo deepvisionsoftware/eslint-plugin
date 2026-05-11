@@ -5,6 +5,7 @@ import stylistic from '@stylistic/eslint-plugin';
 export default defineConfig([
   globalIgnores([
     'node_modules/**',
+    'tests/fixtures/**',
   ]),
   eslint.configs.recommended,
   stylistic.configs.customize({
