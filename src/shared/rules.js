@@ -41,6 +41,20 @@ export const stylisticRules = {
   /**
    * Require certain order of imports
    */
+  'perfectionist/sort-imports': ['error', {
+    type: 'alphabetical',
+    order: 'asc',
+    newlinesBetween: 1,
+    internalPattern: ['^@/.*'],
+    groups: [
+      'side-effect',
+      ['value-builtin', 'type-builtin'],
+      ['value-external', 'type-external'],
+      ['value-internal', 'type-internal'],
+      ['value-parent', 'value-sibling', 'value-index', 'type-parent', 'type-sibling', 'type-index'],
+    ],
+  }],
+
   'perfectionist/sort-named-imports': ['error', {
     type: 'alphabetical',
     order: 'asc',
