@@ -39,11 +39,17 @@ export const stylisticRules = {
   ],
 
   /**
-   * Require certain order of imports
+   * Sort import statements into groups by source — builtin, external,
+   * internal (paths matching `^@/.*`), then relative — alphabetically
+   * within each group, with one blank line between groups. Value and
+   * type imports share each group so `import` and `import type` from
+   * the same module sit together.
    *
-   * Side-effect imports are intentionally excluded from `groups` so their
-   * original position is preserved by `--fix`. Reordering side-effect
-   * imports can change runtime behavior (polyfills, setup, CSS, etc.).
+   * Side-effect imports keep their original order (`sortSideEffects: false`)
+   * and are omitted from `groups`, since reordering them can change runtime
+   * behavior (polyfills, setup, CSS, etc.).
+   *
+   * @see {@link https://perfectionist.dev/rules/sort-imports}
    */
   'perfectionist/sort-imports': ['error', {
     type: 'alphabetical',
@@ -59,6 +65,12 @@ export const stylisticRules = {
     ],
   }],
 
+  /**
+   * Sort named imports inside `{ ... }` alphabetically,
+   * with value imports before type imports.
+   *
+   * @see {@link https://perfectionist.dev/rules/sort-named-imports}
+   */
   'perfectionist/sort-named-imports': ['error', {
     type: 'alphabetical',
     order: 'asc',
