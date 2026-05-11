@@ -66,6 +66,22 @@ describe('vue config', () => {
 
       expect(ruleIds).toContain('@stylistic/padding-line-between-statements');
     });
+
+    it('should report perfectionist/sort-imports for misordered imports', async () => {
+      const eslint = createEslint();
+      const results = await eslint.lintFiles(['src/invalid.ts']);
+      const ruleIds = getRuleIds(results);
+
+      expect(ruleIds).toContain('perfectionist/sort-imports');
+    });
+
+    it('should report perfectionist/sort-named-imports for unsorted named imports', async () => {
+      const eslint = createEslint();
+      const results = await eslint.lintFiles(['src/invalid.ts']);
+      const ruleIds = getRuleIds(results);
+
+      expect(ruleIds).toContain('perfectionist/sort-named-imports');
+    });
   });
 
   describe('Vue SFC files', () => {

@@ -2,6 +2,7 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import eslint from '@eslint/js';
 import typescriptEslint from 'typescript-eslint';
 import stylistic from '@stylistic/eslint-plugin';
+import perfectionist from 'eslint-plugin-perfectionist';
 import { stylisticRules, typescriptRules } from '../shared/rules.js';
 
 export default defineConfig([
@@ -42,6 +43,9 @@ export default defineConfig([
     },
   },
   {
+    plugins: {
+      perfectionist,
+    },
     rules: {
       /**
        * Shared TypeScript rules

@@ -4,6 +4,7 @@ import typescriptEslint from 'typescript-eslint';
 import eslintPluginVue from 'eslint-plugin-vue';
 import vueEslintParser from 'vue-eslint-parser';
 import stylisticEslint from '@stylistic/eslint-plugin';
+import perfectionist from 'eslint-plugin-perfectionist';
 import globals from 'globals';
 import { stylisticRules, typescriptRules } from '../shared/rules.js';
 
@@ -71,6 +72,9 @@ export default defineConfig([
     },
   },
   {
+    plugins: {
+      perfectionist,
+    },
     rules: {
       /**
        * Shared TypeScript rules
