@@ -40,14 +40,18 @@ export const stylisticRules = {
 
   /**
    * Require certain order of imports
+   *
+   * Side-effect imports are intentionally excluded from `groups` so their
+   * original position is preserved by `--fix`. Reordering side-effect
+   * imports can change runtime behavior (polyfills, setup, CSS, etc.).
    */
   'perfectionist/sort-imports': ['error', {
     type: 'alphabetical',
     order: 'asc',
     newlinesBetween: 1,
+    sortSideEffects: false,
     internalPattern: ['^@/.*'],
     groups: [
-      'side-effect',
       ['value-builtin', 'type-builtin'],
       ['value-external', 'type-external'],
       ['value-internal', 'type-internal'],
