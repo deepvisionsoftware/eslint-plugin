@@ -9,15 +9,15 @@
  */
 export const typescriptRules = {
   /**
-   * Enforce inline type imports
+   * Enforce separate type imports
    *
-   * import { type Foo } from 'Foo';
+   * import type { Foo } from 'Foo';
    *
    * @see {@link https://typescript-eslint.io/rules/consistent-type-imports/}
    */
   '@typescript-eslint/consistent-type-imports': ['error', {
     prefer: 'type-imports',
-    fixStyle: 'inline-type-imports',
+    fixStyle: 'separate-type-imports',
     disallowTypeAnnotations: true,
   }],
 };
