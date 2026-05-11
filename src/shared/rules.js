@@ -37,4 +37,14 @@ export const stylisticRules = {
     'error',
     { blankLine: 'always', prev: '*', next: 'return' },
   ],
+
+  /**
+   * Require certain order of imports
+   */
+  'perfectionist/sort-named-imports': ['error', {
+    type: 'alphabetical',
+    order: 'asc',
+    ignoreCase: true,
+    groups: ['value-import', 'type-import'],
+  }],
 };
