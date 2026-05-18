@@ -14,7 +14,7 @@ This package provides ready-to-use ESLint configs for both backend (Node.js) and
 ## Installation
 
 ```bash
-npm install --save-dev @deepvision/eslint-plugin@rc
+npm install --save-dev @deepvision/eslint-plugin
 ```
 
 This package includes all necessary dependencies. No additional installation of `eslint`, `typescript-eslint`, `eslint-plugin-vue`, or any other ESLint-related packages is required.

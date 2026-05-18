@@ -21,21 +21,18 @@
   },
   "scripts": {
     "lint": "eslint",
-    "test": "vitest run",
-    "publish:patch": "pnpm version patch -m \"release: %s\"",
-    "prepublish:patch": "git fetch && git merge @{upstream} && pnpm install && pnpm test",
-    "postpublish:patch": "git push origin && git push origin --tags"
+    "test": "vitest run"
   },
   "dependencies": {
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
-    "eslint": "^10.1.0",
-    "eslint-plugin-vue": "^10.8.0",
-    "globals": "^17.4.0",
-    "typescript-eslint": "^8.57.2",
+    "eslint": "^10.4.0",
+    "eslint-plugin-vue": "^10.9.1",
+    "globals": "^17.6.0",
+    "typescript-eslint": "^8.59.3",
     "vue-eslint-parser": "^10.4.0"
   },
   "devDependencies": {
-    "vitest": "^4.1.1"
+    "vitest": "^4.1.6"
   }
 }
