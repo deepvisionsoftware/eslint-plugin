@@ -10,6 +10,7 @@ This package provides ready-to-use ESLint configs for both backend (Node.js) and
 - **Vue.js support**: Complete Vue 3 linting configuration
 - **Node.js support**: Optimized rules for backend Node.js projects
 - **ESLint 9+ compatible**: Uses the new flat config format
+- **Oxlint + Oxfmt presets**: The same rules for Oxlint and Oxfmt (`@deepvision/eslint-plugin/oxc`), plus a .vue-templates-only ESLint config
 
 ## Installation
 
@@ -47,6 +48,60 @@ export default defineConfig([
   deepEslint.configs.vue,
 ]);
 ```
+
+### Oxlint + Oxfmt (Vite+)
+
+The same presets, for projects that lint with [Oxlint](https://oxc.rs/docs/guide/usage/linter) and format with [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) — for example through [Vite+](https://viteplus.dev) (`vp lint`, `vp fmt`). Oxlint is roughly 50–100× faster than ESLint on the same rules.
+
+- `oxlint()` — every JS/TS rule of the `node` and `vue` presets, rule for rule (a test compares it to the ESLint presets' effective config).
+- `oxfmt` — the formatting half of the presets (@stylistic) as a Prettier-compatible formatter config, `printWidth: 120`.
+- `configs.vueTemplates` — the one thing Oxlint cannot do yet: Vue **template** rules (eslint-plugin-vue) and `no-unused-vars` in `<script setup>`. ESLint lints `.vue` files only, with the layout rules switched off so they do not fight Oxfmt.
+
+`vite.config.ts`:
+
+```ts
+import { oxfmt, oxlint } from '@deepvision/eslint-plugin/oxc';
+import { defineConfig } from 'vite-plus';
+
+export default defineConfig({
+  // Monorepo: say which globs are `node` and which are `vue`.
+  lint: oxlint({
+    node: ['apps/api/**'],
+    vue: ['apps/app/**', 'libs/ui/**'],
+    // Project overrides go after the preset's own.
+    overrides: [
+      { files: ['apps/api/**'], rules: { 'typescript/no-non-null-assertion': 'off' } },
+    ],
+  }),
+  fmt: oxfmt,
+});
+```
+
+A single Vue app is `oxlint({ vue: ['**'] })`. Without Vite+, write the same objects to `.oxlintrc.json` / `.oxfmtrc.json`.
+
+`eslint.config.js` of a package with `.vue` files:
+
+```js
+import deepEslint, { defineConfig } from '@deepvision/eslint-plugin';
+
+export default defineConfig([
+  deepEslint.configs.vueTemplates,
+]);
+```
+
+```json
+{
+  "scripts": {
+    "lint": "vp lint --fix src && eslint src --fix && vp fmt src"
+  }
+}
+```
+
+Rule names in Oxlint: `typescript/*` for `@typescript-eslint/*`, and the typescript-eslint extension rules keep their core name (`no-unused-vars`).
+
+Not covered by the Oxc presets:
+- `@stylistic/padding-line-between-statements` (blank line before `return`): Oxfmt keeps blank lines but never adds one, and Oxlint has no such rule.
+- The `vue` preset's ignore of `src/graphql/**/*.ts`: add it to `ignorePatterns` yourself.
 
 ### package.json Scripts
 
