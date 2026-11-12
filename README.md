@@ -4,7 +4,7 @@ This package provides ready-to-use ESLint configs for both backend (Node.js) and
 
 ## Features
 
-- **All-in-one solution**: No need to install ESLint or any plugins separately - everything is included
+- **One install line**: ESLint and its plugins are listed as peer dependencies, so a project that only uses the Oxc presets installs none of them
 - **TypeScript support**: Built-in TypeScript linting with typescript-eslint
 - **Stylistic rules**: Consistent code formatting with @stylistic/eslint-plugin
 - **Vue.js support**: Complete Vue 3 linting configuration
@@ -14,11 +14,19 @@ This package provides ready-to-use ESLint configs for both backend (Node.js) and
 
 ## Installation
 
+**ESLint presets** (`node`, `vue`, `vueTemplates`) — install the package together with ESLint and its plugins (they are optional peer dependencies since 3.0.0):
+
+```bash
+npm install --save-dev @deepvision/eslint-plugin eslint @eslint/js typescript-eslint @stylistic/eslint-plugin eslint-plugin-vue vue-eslint-parser eslint-config-prettier globals
+```
+
+**Oxc presets only** (`@deepvision/eslint-plugin/oxc` — Oxlint and Oxfmt in a Vite+ `vite.config.ts`) — the package alone is enough; nothing ESLint-related is installed:
+
 ```bash
 npm install --save-dev @deepvision/eslint-plugin
 ```
 
-This package includes all necessary dependencies. No additional installation of `eslint`, `typescript-eslint`, `eslint-plugin-vue`, or any other ESLint-related packages is required.
+> Upgrading from 2.x with ESLint: add the packages from the first command to your `devDependencies`. The presets themselves did not change.
 
 ## Usage
 
@@ -116,17 +124,18 @@ Add linting scripts to your `package.json`:
 }
 ```
 
-## What's Included
+## Peer Dependencies
 
-This package includes all necessary dependencies:
+The ESLint presets need these packages installed next to this one:
 
 - `eslint` - The core ESLint linter
 - `@eslint/js` - ESLint's recommended JavaScript rules
 - `typescript-eslint` - TypeScript support for ESLint
 - `@stylistic/eslint-plugin` - Stylistic formatting rules
-- `eslint-plugin-vue` - Vue.js linting rules
+- `eslint-plugin-vue` and `vue-eslint-parser` - Vue.js linting rules
+- `eslint-config-prettier` and `globals`
 
-You don't need to install any of these separately!
+They are optional peers, so the Oxc presets (`@deepvision/eslint-plugin/oxc`) work without any of them.
 
 ## Running ESLint
 
